@@ -29,6 +29,18 @@ public class MyLoginCommands
         }
     }
 
+    public class LoginCompleteCommand<T> : ICommand
+    {
+        public bool IsSuccess { get; private set; }
+        public T UserData { get; private set; }
+
+        public LoginCompleteCommand(bool isSuccess, T userData)
+        {
+            IsSuccess = isSuccess;
+            UserData = userData;
+        }
+    }
+
     public class LogoutCommand : ICommand
     {
     }

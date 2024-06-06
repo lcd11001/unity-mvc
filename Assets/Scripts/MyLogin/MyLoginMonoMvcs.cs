@@ -6,10 +6,30 @@ using UnityEngine;
 public class MyLoginMonoMvcs : MonoBehaviour
 {
     [SerializeField] private MyLoginView view;
+    [SerializeField] private MyLoginData userData;
 
     void Start()
     {
-        MyLogin myLoginMVCS = new MyLogin(view);
+        if (userData == null)
+        {
+            userData = ScriptableObject.CreateInstance<MyLoginData>();
+        }
+        MyLogin myLoginMVCS = new MyLogin(view, userData);
         myLoginMVCS.Initialize();
+
+        view.Context.CommandManager.AddCommandListener<MyLoginCommands.LoginCompleteCommand<MyLoginData>>(OnLoginComplete);
+    }
+
+    private void OnDestroy()
+    {
+        view.Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginCompleteCommand<MyLoginData>>(OnLoginComplete);
+    }
+
+    private void OnLoginComplete(MyLoginCommands.LoginCompleteCommand<MyLoginData> cmd)
+    {
+        if (cmd.IsSuccess)
+        {
+            userData = cmd.UserData;
+        }
     }
 }

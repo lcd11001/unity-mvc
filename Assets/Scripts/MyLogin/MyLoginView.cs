@@ -12,6 +12,7 @@ public class MyLoginView : MonoBehaviour, IView
 {
     [SerializeField] private TMP_InputField txtUsername;
     [SerializeField] private TMP_InputField txtPassword;
+    [SerializeField] private TMP_Text txtStatus;
     [SerializeField] private UIButton btnLogin;
     [SerializeField] private UIButton btnClear;
     [SerializeField] private UIButton btnLogout;
@@ -29,6 +30,29 @@ public class MyLoginView : MonoBehaviour, IView
         {
             this.context = context;
             isInitialized = true;
+
+            Context.CommandManager.AddCommandListener<MyLoginCommands.LoginCompleteCommand<MyLoginData>>(OnLoginComplete);
+        }
+    }
+
+    void Start()
+    {
+        SetViewStatus(false, "");
+    }
+
+    void SetViewStatus(bool success, string message)
+    {
+        txtStatus.text = message;
+        btnLogin.interactable = !success;
+        btnClear.interactable = !success;
+        btnLogout.interactable = success;
+    }
+
+    void OnDestroy()
+    {
+        if (IsInitialized)
+        {
+            Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginCompleteCommand<MyLoginData>>(OnLoginComplete);
         }
     }
 
@@ -70,5 +94,17 @@ public class MyLoginView : MonoBehaviour, IView
     {
         RequireIsInitialized();
         Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginRequestCommand(txtUsername.text, txtPassword.text));
+    }
+
+    private void OnLoginComplete(MyLoginCommands.LoginCompleteCommand<MyLoginData> cmd)
+    {
+        if (cmd.IsSuccess)
+        {
+            SetViewStatus(true, $"Logged In SUCCESS {cmd.UserData.UserName}");
+        }
+        else
+        {
+            SetViewStatus(false, "Logged In FAILED");
+        }
     }
 }

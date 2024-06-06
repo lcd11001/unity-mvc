@@ -6,18 +6,18 @@ using UnityEngine;
 
 public class MyLogin : MiniMvcs<
     Context,
-    MyLoginModel,
+    MyLoginModel<MyLoginData>,
     MyLoginView,
     MyLoginController,
     MyLoginService
 >
 {
-    public MyLogin(MyLoginView view)
+    public MyLogin(MyLoginView view, MyLoginData data)
     {
         _view = view;
 
         _context = new Context();
-        _model = new MyLoginModel();
+        _model = new MyLoginModel<MyLoginData>(data);
         _service = new MyLoginService();
         _controller = new MyLoginController(_model, _view, _service);
     }

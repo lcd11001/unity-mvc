@@ -6,9 +6,9 @@ using RMC.Core.Architectures.Mini.Controller;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MyLoginController : BaseController<MyLoginModel, MyLoginView, MyLoginService>, IDisposable
+public class MyLoginController : BaseController<MyLoginModel<MyLoginData>, MyLoginView, MyLoginService>, IDisposable
 {
-    public MyLoginController(MyLoginModel model, MyLoginView view, MyLoginService service) : base(model, view, service)
+    public MyLoginController(MyLoginModel<MyLoginData> model, MyLoginView view, MyLoginService service) : base(model, view, service)
     {
         Application.quitting += Dispose;
     }
@@ -35,10 +35,16 @@ public class MyLoginController : BaseController<MyLoginModel, MyLoginView, MyLog
         if (cmd.IsSuccess)
         {
             Debug.Log($"MyLoginController.OnLoginResponseCommand: SUCCESS {cmd.Message}");
+            MainThreadDispatcher.RunOnMainThread(() =>
+            {
+                // fixed: CreateScriptableObjectInstanceFromType can only be called from the main thread.
+                _model.SetLoggedInUserData(MyLoginData.FromJson(cmd.Message));
+            });
         }
         else
         {
             Debug.LogError($"MyLoginController.OnLoginResponseCommand: FAIL {cmd.Message}");
+            Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginCompleteCommand<MyLoginData>(false, null));
         }
     }
 
