@@ -34,7 +34,7 @@ public class MyLoginView : MonoBehaviour, IView
 
     public void RequireIsInitialized()
     {
-        if (!isInitialized)
+        if (!IsInitialized)
         {
             throw new System.Exception("Not initialized");
         }
@@ -56,16 +56,19 @@ public class MyLoginView : MonoBehaviour, IView
 
     private void OnBtnLogoutClick()
     {
-        Debug.Log("OnBtnLogoutClick");
+        RequireIsInitialized();
+        Context.CommandManager.InvokeCommand(new MyLoginCommands.LogoutCommand());
     }
 
     private void OnBtnClearClick()
     {
-        Debug.Log("OnBtnClearClick");
+        RequireIsInitialized();
+        Context.CommandManager.InvokeCommand(new MyLoginCommands.ClearCommand());
     }
 
     private void OnBtnLoginClick()
     {
-        Debug.Log("OnBtnLoginClick");
+        RequireIsInitialized();
+        Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginCommand(txtUsername.text, txtPassword.text));
     }
 }
