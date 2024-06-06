@@ -69,6 +69,6 @@ public class MyLoginView : MonoBehaviour, IView
     private void OnBtnLoginClick()
     {
         RequireIsInitialized();
-        Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginCommand(txtUsername.text, txtPassword.text));
+        Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginRequestCommand(txtUsername.text, txtPassword.text));
     }
 }
