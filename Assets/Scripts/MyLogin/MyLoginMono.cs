@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MyLoginMonoMvcs : MonoBehaviour
+public class MyLoginMono : MonoBehaviour
 {
     [SerializeField] private MyLoginView view;
     [SerializeField] private MyLoginData userData;
