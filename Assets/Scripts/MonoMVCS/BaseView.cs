@@ -27,5 +27,5 @@ public abstract class BaseView : MonoBehaviour, IView
         }
     }
 
-    public abstract void UpdateView<TModel>(TModel data);
+    public abstract void UpdateView(ScriptableObject data);
 }

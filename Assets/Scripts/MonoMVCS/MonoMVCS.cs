@@ -36,10 +36,7 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
     /// Create instances of model, view, controller and service
     /// </summary>
     /// <param name="context"></param>
-    protected virtual void MVCS()
-    {
-        context = new Context();
-    }
+    abstract protected void MVCS();
 
     protected virtual void Initialize(IContext context)
     {

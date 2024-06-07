@@ -4,7 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseScriptableModel : ScriptableObject, IModel
+public interface IScriptableModel: IModel
+{
+    void UpdateModel(ScriptableObject data);
+}
+
+public abstract class BaseScriptableModel: ScriptableObject, IScriptableModel
 {
     public bool IsInitialized => _isInitialized;
     public IContext Context => _context;
@@ -25,5 +30,5 @@ public abstract class BaseScriptableModel : ScriptableObject, IModel
         }
     }
 
-    public abstract void UpdateModel<T>(T data);
+    public abstract void UpdateModel(ScriptableObject data);
 }
