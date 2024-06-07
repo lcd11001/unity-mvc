@@ -4,12 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IScriptableModel: IModel
+public interface IScriptableModel : IModel
 {
-    void UpdateModel(ScriptableObject data);
+    void OnModelChanged();
 }
 
-public abstract class BaseScriptableModel: ScriptableObject, IScriptableModel
+public abstract class BaseScriptableModel : ScriptableObject, IScriptableModel
 {
     public bool IsInitialized => _isInitialized;
     public IContext Context => _context;
@@ -17,12 +17,13 @@ public abstract class BaseScriptableModel: ScriptableObject, IScriptableModel
     private bool _isInitialized = false;
     private IContext _context;
 
-    public void Initialize(IContext context)
+    public virtual void Initialize(IContext context)
     {
         _context = context;
+        _isInitialized = true;
     }
 
-    public void RequireIsInitialized()
+    public virtual void RequireIsInitialized()
     {
         if (!_isInitialized)
         {
@@ -30,5 +31,5 @@ public abstract class BaseScriptableModel: ScriptableObject, IScriptableModel
         }
     }
 
-    public abstract void UpdateModel(ScriptableObject data);
+    public abstract void OnModelChanged();
 }

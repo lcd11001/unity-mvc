@@ -48,4 +48,14 @@ public class MyLoginCommands
     public class ClearCommand : ICommand
     {
     }
+
+    public class ModelChangedCommand<T> : ICommand
+    {
+        public T Model { get; private set; }
+
+        public ModelChangedCommand(T model)
+        {
+            Model = model;
+        }
+    }
 }

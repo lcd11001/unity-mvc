@@ -1,3 +1,6 @@
+using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Data.Types.Observables;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +8,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MyLoginMonoModel", menuName = "Mono MVCS/My Login Mono/Model")]
 public class MyLoginMonoModel : BaseScriptableModel
 {
-    [field: SerializeField]
-    public bool IsLoggedIn { get; set; }
+    public FieldObservable<bool> IsLoggedIn = new FieldObservable<bool>();
+
     [field: SerializeField]
     public string StatusMessage { get; set; }
     [field: SerializeField]
@@ -14,8 +17,25 @@ public class MyLoginMonoModel : BaseScriptableModel
     [field: SerializeField]
     public string Password { get; set; }
 
-    public override void UpdateModel(ScriptableObject data)
+    override public void Initialize(IContext context)
     {
-        
+        if (!IsInitialized)
+        {
+            base.Initialize(context);
+            IsLoggedIn.Value = false;
+
+            IsLoggedIn.OnValueChanged.AddListener(OnIsLoggedInChanged);
+        }
+    }
+
+    private void OnIsLoggedInChanged(bool val)
+    {
+        OnModelChanged();
+    }
+
+    public override void OnModelChanged()
+    {
+        RequireIsInitialized();
+        Context.CommandManager.InvokeCommand(new MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>(this));
     }
 }

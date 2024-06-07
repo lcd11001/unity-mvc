@@ -13,13 +13,13 @@ public abstract class BaseView : MonoBehaviour, IView
     private bool _isInitialized = false;
     private IContext _context;
 
-    public void Initialize(IContext context)
+    public virtual void Initialize(IContext context)
     {
         _context = context;
         _isInitialized = true;
     }
 
-    public void RequireIsInitialized()
+    public virtual void RequireIsInitialized()
     {
         if (!_isInitialized)
         {

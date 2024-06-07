@@ -1,4 +1,6 @@
 using Doozy.Runtime.UIManager.Components;
+using RMC.Core.Architectures.Mini.Context;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +14,23 @@ public class MyLoginMonoView : BaseView
     [SerializeField] private UIButton btnLogin;
     [SerializeField] private UIButton btnClear;
     [SerializeField] private UIButton btnLogout;
+
+    override public void Initialize(IContext context)
+    {
+        if (!IsInitialized)
+        {
+            base.Initialize(context);
+            Context.CommandManager.AddCommandListener<MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>>(OnModelChanged);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (IsInitialized)
+        {
+            Context.CommandManager.RemoveCommandListener<MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>>(OnModelChanged);
+        }
+    }
 
     void OnEnable()
     {
@@ -45,8 +64,21 @@ public class MyLoginMonoView : BaseView
         Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginRequestCommand(txtUsername.text, txtPassword.text));
     }
 
-    public override void UpdateView(ScriptableObject data)
+    public override void UpdateView(ScriptableObject obj)
     {
-        
+        MyLoginMonoModel data = obj as MyLoginMonoModel;
+        if ( data.IsLoggedIn.Value)
+        {
+            txtStatus.text = $"Loggin SUCCESS with {data.Username}";
+        }
+        else
+        {
+            txtStatus.text = $"Login FAIL with {data.StatusMessage}";
+        }
+    }
+
+    private void OnModelChanged(MyLoginCommands.ModelChangedCommand<MyLoginMonoModel> cmd)
+    {
+        UpdateView(cmd.Model);
     }
 }
