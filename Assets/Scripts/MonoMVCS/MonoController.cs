@@ -14,7 +14,7 @@ public class MonoController<TModel, TView, TService> : BaseController<TModel, TV
         model.OnModelChangedEvent += view.UpdateView;
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         _model.OnModelChangedEvent -= _view.UpdateView;
     }

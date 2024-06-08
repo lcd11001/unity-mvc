@@ -23,6 +23,15 @@ public class MyLoginMonoController : MonoController<MyLoginMonoModel, MyLoginMon
         }
     }
 
+    public override void Dispose()
+    {
+        base.Dispose();
+
+        Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginRequestCommand>(OnViewLoginRequestCommand);
+        Context.CommandManager.RemoveCommandListener<MyLoginCommands.LogoutCommand>(OnViewLogoutCommand);
+        Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginResponseCommand>(OnServiceLoginResponse);
+    }
+
     private void OnServiceLoginResponse(MyLoginCommands.LoginResponseCommand cmd)
     {
         _model.StatusMessage = cmd.Message;
