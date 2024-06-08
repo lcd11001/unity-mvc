@@ -29,5 +29,5 @@ public abstract class MonoView : MonoBehaviour, IView
         }
     }
 
-    public abstract void UpdateView(ScriptableObject data);
+    public abstract void UpdateView(MonoModel data);
 }

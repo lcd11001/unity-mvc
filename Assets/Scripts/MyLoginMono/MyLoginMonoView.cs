@@ -15,23 +15,6 @@ public class MyLoginMonoView : MonoView
     [SerializeField] private UIButton btnClear;
     [SerializeField] private UIButton btnLogout;
 
-    override public void Initialize(IContext context)
-    {
-        if (!IsInitialized)
-        {
-            base.Initialize(context);
-            Context.CommandManager.AddCommandListener<MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>>(OnModelChanged);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (IsInitialized)
-        {
-            Context.CommandManager.RemoveCommandListener<MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>>(OnModelChanged);
-        }
-    }
-
     void OnEnable()
     {
         btnLogin?.onClickEvent.AddListener(OnBtnLoginClick);
@@ -64,7 +47,7 @@ public class MyLoginMonoView : MonoView
         Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginRequestCommand(txtUsername.text, txtPassword.text));
     }
 
-    public override void UpdateView(ScriptableObject obj)
+    public override void UpdateView(MonoModel obj)
     {
         MyLoginMonoModel data = obj as MyLoginMonoModel;
         if (data.IsLoggedIn.Value)
@@ -75,10 +58,5 @@ public class MyLoginMonoView : MonoView
         {
             txtStatus.text = $"Login FAIL with {data.StatusMessage}";
         }
-    }
-
-    private void OnModelChanged(MyLoginCommands.ModelChangedCommand<MyLoginMonoModel> cmd)
-    {
-        UpdateView(cmd.Model);
     }
 }

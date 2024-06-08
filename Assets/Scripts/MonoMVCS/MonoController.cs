@@ -10,5 +10,6 @@ public class MonoController<TModel, TView, TService> : BaseController<TModel, TV
 {
     public MonoController(TModel model, TView view, TService service) : base(model, view, service)
     {
+        model.OnModelChangedEvent += view.UpdateView;
     }
 }

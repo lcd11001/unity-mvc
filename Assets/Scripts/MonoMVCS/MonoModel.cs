@@ -16,15 +16,10 @@ public abstract class MonoModel : ScriptableObject, IScriptableModel
     public bool IsInitialized => _isInitialized;
     public IContext Context => _context;
 
-    private UnityEvent<MonoModel> OnModelChangedEvent;
+    public event Action<MonoModel> OnModelChangedEvent;
 
     private bool _isInitialized = false;
     private IContext _context;
-
-    public MonoModel()
-    {
-        OnModelChangedEvent = new UnityEvent<MonoModel>();
-    }
 
     protected virtual void OnEnable()
     {
@@ -49,10 +44,9 @@ public abstract class MonoModel : ScriptableObject, IScriptableModel
         }
     }
 
-    public abstract void OnModelChanged();
-
-    public void NotifyModelChanged()
+    public virtual void OnModelChanged()
     {
+        RequireIsInitialized();
         OnModelChangedEvent.Invoke(this);
     }
 }

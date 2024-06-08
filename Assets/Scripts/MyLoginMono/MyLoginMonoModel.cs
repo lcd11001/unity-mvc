@@ -32,10 +32,4 @@ public class MyLoginMonoModel : MonoModel
     {
         OnModelChanged();
     }
-
-    public override void OnModelChanged()
-    {
-        RequireIsInitialized();
-        Context.CommandManager.InvokeCommand(new MyLoginCommands.ModelChangedCommand<MyLoginMonoModel>(this));
-    }
 }
