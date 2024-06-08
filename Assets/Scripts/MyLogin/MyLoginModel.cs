@@ -34,6 +34,7 @@ public partial class MyLoginModel<T> : BaseModel
 
     private void OnUserDataChanged(T prev, T curr)
     {
+        RequireIsInitialized();
         Debug.Log($"MyLoginModel.OnUserDataChanged: prev {prev} curr {curr}");
         Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginCompleteCommand<T>(true, curr));
     }

@@ -1,5 +1,6 @@
 using RMC.Core.Architectures.Mini.Context;
 using RMC.Core.Architectures.Mini.View;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,8 @@ public abstract class BaseView : MonoBehaviour, IView
     {
         if (!_isInitialized)
         {
-            throw new System.Exception("MustBeInitialized");
+            Debug.LogError("BaseView: MustBeInitialized");
+            throw new Exception("MustBeInitialized");
         }
     }
 

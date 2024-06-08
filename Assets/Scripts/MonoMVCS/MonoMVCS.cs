@@ -42,6 +42,7 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
     {
         if (context == null || model == null || view == null || controller == null || service == null)
         {
+            Debug.LogError("Consider calling MVCS to create instances of model, view, controller and service");
             throw new Exception("Consider calling MVCS to create instances of model, view, controller and service");
         }
 

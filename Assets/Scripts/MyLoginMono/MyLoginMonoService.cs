@@ -12,13 +12,13 @@ public class MyLoginMonoService : BaseService
         {
             if (username != "admin" || password != "admin")
             {
-                Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginResponseCommand(false, "Login Failed"));
+                Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginResponseCommand(false, "wrong username or password"));
             }
             else
             {
                 Context.CommandManager.InvokeCommand(new MyLoginCommands.LoginResponseCommand(true, $"{{\"u\": {username}, \"p\": {password}}}"));
             }
         });
-            
+
     }
 }
