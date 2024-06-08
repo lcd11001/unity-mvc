@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MyLoginMonoModel", menuName = "Mono MVCS/My Login Mono/Model")]
 public class MyLoginMonoModel : MonoModel
 {
-    public FieldObservable<bool> IsLoggedIn = new FieldObservable<bool>();
+    public MonoField<bool> IsLoggedIn = new MonoField<bool>();
 
     [field: SerializeField]
     public string StatusMessage { get; set; }

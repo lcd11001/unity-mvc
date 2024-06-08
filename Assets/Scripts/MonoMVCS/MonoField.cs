@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [Serializable]
-public class FieldObservable<T>
+public class MonoField<T>
 {
     [SerializeField] private T _value;
     public readonly UnityEvent<T> OnValueChanged;
 
-    public FieldObservable()
+    public MonoField()
     {
         OnValueChanged = new UnityEvent<T>();
     }
@@ -24,4 +24,4 @@ public class FieldObservable<T>
             OnValueChanged.Invoke(_value);
         }
     }
-}  
+}
