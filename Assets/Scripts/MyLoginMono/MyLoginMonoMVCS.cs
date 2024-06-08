@@ -7,7 +7,6 @@ public class MyLoginMonoMVCS : MonoMVCS<MyLoginMonoModel, MyLoginMonoView, MyLog
 {
     protected override void MVCS()
     {
-        context = new Context();
         // model & view have been initialized via Unity Inspector
         service = new MyLoginMonoService();
         controller = new MyLoginMonoController(model, view, service);

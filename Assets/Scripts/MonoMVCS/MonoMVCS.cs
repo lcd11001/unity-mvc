@@ -26,10 +26,26 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
     private bool _isInitialized = false;
     public bool IsInintialized => _isInitialized;
 
+    public virtual Context Context
+    {
+        get
+        {
+            if (context == null)
+            {
+                context = new Context();
+            }
+            return context;
+        }
+        set
+        {
+            context = value;
+        }
+    }
+
     protected virtual void Awake()
     {
         MVCS();
-        Initialize(context);
+        Initialize(Context);
     }
 
     /// <summary>
@@ -40,16 +56,18 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
 
     protected virtual void Initialize(IContext context)
     {
-        if (context == null || model == null || view == null || controller == null || service == null)
-        {
-            Debug.LogError("Consider calling MVCS to create instances of model, view, controller and service");
-            throw new Exception("Consider calling MVCS to create instances of model, view, controller and service");
-        }
-
         if (IsInintialized)
         {
             return;
         }
+
+        // default support for all models, views, controllers and services
+        // you can override this method to add or remove one of them
+        CheckNull(context, nameof(context));
+        CheckNull(model, nameof(model));
+        CheckNull(view, nameof(view));
+        CheckNull(controller, nameof(controller));
+        CheckNull(service, nameof(service));
 
         model.Initialize(context);
         view.Initialize(context);
@@ -57,5 +75,14 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
         controller.Initialize(context);
 
         _isInitialized = true;
+    }
+
+    private void CheckNull(object component, string name)
+    {
+        if (component == null)
+        {
+            Debug.LogError($"{name} is null. Consider calling MVCS to create an instance of it.");
+            throw new Exception($"{name} is null. Consider calling MVCS to create an instance of it.");
+        }
     }
 }
