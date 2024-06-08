@@ -32,6 +32,14 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
         Initialize(context);
     }
 
+    protected virtual void OnDestroy()
+    {
+        if (IsInintialized)
+        {
+            controller.Dispose();
+        }
+    }
+
     /// <summary>
     /// Create instances of model, view, controller and service
     /// </summary>
