@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyLoginMonoController : BaseController<MyLoginMonoModel, MyLoginMonoView, MyLoginMonoService>
+public class MyLoginMonoController : MonoController<MyLoginMonoModel, MyLoginMonoView, MyLoginMonoService>
 {
     public MyLoginMonoController(MyLoginMonoModel model, MyLoginMonoView view, MyLoginMonoService service) : base(model, view, service)
     {

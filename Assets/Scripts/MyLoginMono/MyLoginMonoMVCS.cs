@@ -5,10 +5,4 @@ using UnityEngine;
 
 public class MyLoginMonoMVCS : MonoMVCS<MyLoginMonoModel, MyLoginMonoView, MyLoginMonoController, MyLoginMonoService>
 {
-    protected override void MVCS()
-    {
-        // model & view have been initialized via Unity Inspector
-        service = new MyLoginMonoService();
-        controller = new MyLoginMonoController(model, view, service);
-    }
 }

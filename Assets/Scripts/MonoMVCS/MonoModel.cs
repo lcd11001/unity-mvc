@@ -4,19 +4,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public interface IScriptableModel : IModel
 {
     void OnModelChanged();
 }
 
-public abstract class BaseScriptableModel : ScriptableObject, IScriptableModel
+public abstract class MonoModel : ScriptableObject, IScriptableModel
 {
     public bool IsInitialized => _isInitialized;
     public IContext Context => _context;
 
+    private UnityEvent<MonoModel> OnModelChangedEvent;
+
     private bool _isInitialized = false;
     private IContext _context;
+
+    public MonoModel()
+    {
+        OnModelChangedEvent = new UnityEvent<MonoModel>();
+    }
 
     protected virtual void OnEnable()
     {
@@ -42,4 +50,9 @@ public abstract class BaseScriptableModel : ScriptableObject, IScriptableModel
     }
 
     public abstract void OnModelChanged();
+
+    public void NotifyModelChanged()
+    {
+        OnModelChangedEvent.Invoke(this);
+    }
 }

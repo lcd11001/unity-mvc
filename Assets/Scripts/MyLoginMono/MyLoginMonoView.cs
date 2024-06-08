@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MyLoginMonoView : BaseView
+public class MyLoginMonoView : MonoView
 {
     [SerializeField] private TMP_InputField txtUsername;
     [SerializeField] private TMP_InputField txtPassword;
@@ -67,7 +67,7 @@ public class MyLoginMonoView : BaseView
     public override void UpdateView(ScriptableObject obj)
     {
         MyLoginMonoModel data = obj as MyLoginMonoModel;
-        if ( data.IsLoggedIn.Value)
+        if (data.IsLoggedIn.Value)
         {
             txtStatus.text = $"Loggin SUCCESS with {data.Username}";
         }

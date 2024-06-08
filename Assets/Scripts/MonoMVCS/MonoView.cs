@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseView : MonoBehaviour, IView
+public abstract class MonoView : MonoBehaviour, IView
 {
     public bool IsInitialized => _isInitialized;
 

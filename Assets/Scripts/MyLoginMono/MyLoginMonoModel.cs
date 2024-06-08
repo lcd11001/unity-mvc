@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MyLoginMonoModel", menuName = "Mono MVCS/My Login Mono/Model")]
-public class MyLoginMonoModel : BaseScriptableModel
+public class MyLoginMonoModel : MonoModel
 {
     public FieldObservable<bool> IsLoggedIn = new FieldObservable<bool>();
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class MyLoginMonoService : BaseService
+public class MyLoginMonoService : MonoService
 {
     public void Login(string username, string password)
     {
