@@ -4,10 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoService : BaseService, IDisposable
+namespace MonoMVCS
 {
-    public virtual void Dispose()
+    public class MonoService : BaseService, IDisposable
     {
+        public virtual void Dispose()
+        {
 
+        }
     }
 }

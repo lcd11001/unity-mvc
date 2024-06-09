@@ -5,33 +5,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MonoView : MonoBehaviour, IView, IDisposable
+namespace MonoMVCS
 {
-    public bool IsInitialized => _isInitialized;
-
-    public IContext Context => _context;
-
-    private bool _isInitialized = false;
-    private IContext _context;
-
-    public virtual void Initialize(IContext context)
+    public abstract class MonoView : MonoBehaviour, IView, IDisposable
     {
-        _context = context;
-        _isInitialized = true;
-    }
+        public bool IsInitialized => _isInitialized;
 
-    public virtual void RequireIsInitialized()
-    {
-        if (!_isInitialized)
+        public IContext Context => _context;
+
+        private bool _isInitialized = false;
+        private IContext _context;
+
+        public virtual void Initialize(IContext context)
         {
-            Debug.LogError("BaseView: MustBeInitialized");
-            throw new Exception("MustBeInitialized");
+            _context = context;
+            _isInitialized = true;
         }
-    }
 
-    public abstract void UpdateView(MonoModel data);
+        public virtual void RequireIsInitialized()
+        {
+            if (!_isInitialized)
+            {
+                Debug.LogError("BaseView: MustBeInitialized");
+                throw new Exception("MustBeInitialized");
+            }
+        }
 
-    public virtual void Dispose()
-    {
+        public abstract void UpdateView(MonoModel data);
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

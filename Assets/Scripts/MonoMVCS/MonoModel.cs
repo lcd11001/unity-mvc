@@ -6,51 +6,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public interface IScriptableModel : IModel
+namespace MonoMVCS
 {
-    void OnModelChanged();
-}
-
-public abstract class MonoModel : ScriptableObject, IScriptableModel, IDisposable
-{
-    public bool IsInitialized => _isInitialized;
-    public IContext Context => _context;
-
-    public event Action<MonoModel> OnModelChangedEvent;
-
-    private bool _isInitialized = false;
-    private IContext _context;
-
-    protected virtual void OnEnable()
+    public interface IScriptableModel : IModel
     {
-        // ScriptableObject instances persist across play sessions in the Unity editor.
-        // This means that if you set _isInitialized to true during one play session,
-        // it will remain true when you stop and then play again in the Unity editor.
-        _isInitialized = false;
+        void OnModelChanged();
     }
 
-    public virtual void Initialize(IContext context)
+    public abstract class MonoModel : ScriptableObject, IScriptableModel, IDisposable
     {
-        _context = context;
-        _isInitialized = true;
-    }
+        public bool IsInitialized => _isInitialized;
+        public IContext Context => _context;
 
-    public virtual void RequireIsInitialized()
-    {
-        if (!_isInitialized)
+        public event Action<MonoModel> OnModelChangedEvent;
+
+        private bool _isInitialized = false;
+        private IContext _context;
+
+        protected virtual void OnEnable()
         {
-            Debug.LogError("BaseScriptableModel: MustBeInitialized");
-            throw new Exception("MustBeInitialized");
+            // ScriptableObject instances persist across play sessions in the Unity editor.
+            // This means that if you set _isInitialized to true during one play session,
+            // it will remain true when you stop and then play again in the Unity editor.
+            _isInitialized = false;
         }
-    }
 
-    public virtual void OnModelChanged()
-    {
-        RequireIsInitialized();
-        OnModelChangedEvent.Invoke(this);
-    }
+        public virtual void Initialize(IContext context)
+        {
+            _context = context;
+            _isInitialized = true;
+        }
 
-    public virtual void Dispose()
-    {
+        public virtual void RequireIsInitialized()
+        {
+            if (!_isInitialized)
+            {
+                Debug.LogError("BaseScriptableModel: MustBeInitialized");
+                throw new Exception("MustBeInitialized");
+            }
+        }
+
+        public virtual void OnModelChanged()
+        {
+            RequireIsInitialized();
+            OnModelChangedEvent.Invoke(this);
+        }
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

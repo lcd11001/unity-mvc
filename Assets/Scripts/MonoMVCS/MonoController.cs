@@ -4,18 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoController<TModel, TView, TService> : BaseController<TModel, TView, TService>, IDisposable
-    where TModel : MonoModel
-    where TView : MonoView
-    where TService : MonoService
+namespace MonoMVCS
 {
-    public MonoController(TModel model, TView view, TService service) : base(model, view, service)
+    public class MonoController<TModel, TView, TService> : BaseController<TModel, TView, TService>, IDisposable
+        where TModel : MonoModel
+        where TView : MonoView
+        where TService : MonoService
     {
-        _model.OnModelChangedEvent += _view.UpdateView;
-    }
+        public MonoController(TModel model, TView view, TService service) : base(model, view, service)
+        {
+            _model.OnModelChangedEvent += _view.UpdateView;
+        }
 
-    public virtual void Dispose()
-    {
-        _model.OnModelChangedEvent -= _view.UpdateView;
+        public virtual void Dispose()
+        {
+            _model.OnModelChangedEvent -= _view.UpdateView;
+        }
     }
 }

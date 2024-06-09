@@ -4,24 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[Serializable]
-public class MonoField<T>
+namespace MonoMVCS
 {
-    [SerializeField] private T _value;
-    public readonly UnityEvent<T> OnValueChanged;
-
-    public MonoField()
+    [Serializable]
+    public class MonoField<T>
     {
-        OnValueChanged = new UnityEvent<T>();
-    }
+        [SerializeField] private T _value;
+        public readonly UnityEvent<T> OnValueChanged;
 
-    public T Value
-    {
-        get => _value;
-        set
+        public MonoField()
         {
-            _value = value;
-            OnValueChanged.Invoke(_value);
+            OnValueChanged = new UnityEvent<T>();
+        }
+
+        public T Value
+        {
+            get => _value;
+            set
+            {
+                _value = value;
+                OnValueChanged.Invoke(_value);
+            }
         }
     }
 }
