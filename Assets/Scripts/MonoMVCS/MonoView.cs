@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MonoView : MonoBehaviour, IView
+public abstract class MonoView : MonoBehaviour, IView, IDisposable
 {
     public bool IsInitialized => _isInitialized;
 
@@ -30,4 +30,8 @@ public abstract class MonoView : MonoBehaviour, IView
     }
 
     public abstract void UpdateView(MonoModel data);
+
+    public virtual void Dispose()
+    {
+    }
 }

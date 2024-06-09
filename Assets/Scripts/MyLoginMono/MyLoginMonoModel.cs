@@ -32,4 +32,10 @@ public class MyLoginMonoModel : MonoModel
     {
         OnModelChanged();
     }
+
+    override public void Dispose()
+    {
+        base.Dispose();
+        IsLoggedIn.OnValueChanged.RemoveListener(OnIsLoggedInChanged);
+    }
 }

@@ -11,7 +11,7 @@ public interface IScriptableModel : IModel
     void OnModelChanged();
 }
 
-public abstract class MonoModel : ScriptableObject, IScriptableModel
+public abstract class MonoModel : ScriptableObject, IScriptableModel, IDisposable
 {
     public bool IsInitialized => _isInitialized;
     public IContext Context => _context;
@@ -48,5 +48,9 @@ public abstract class MonoModel : ScriptableObject, IScriptableModel
     {
         RequireIsInitialized();
         OnModelChangedEvent.Invoke(this);
+    }
+
+    public virtual void Dispose()
+    {
     }
 }

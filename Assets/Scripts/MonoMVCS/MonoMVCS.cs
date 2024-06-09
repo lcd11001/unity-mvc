@@ -36,7 +36,10 @@ public abstract class MonoMVCS<TModel, TView, TController, TService> : MonoBehav
     {
         if (IsInintialized)
         {
+            model.Dispose();
+            view.Dispose();
             controller.Dispose();
+            service.Dispose();
         }
     }
 
