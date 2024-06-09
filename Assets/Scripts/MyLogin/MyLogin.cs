@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using RMC.Core.Architectures.Mini;
-using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Architectures.Mini.Structure.Simple;
 using UnityEngine;
 
-public class MyLogin : MiniMvcs<
+public class MyLogin : SimpleMiniMvcs<
     Context,
     MyLoginModel<MyLoginData>,
     MyLoginView,

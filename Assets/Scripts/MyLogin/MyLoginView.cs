@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Doozy.Runtime.UIManager.Components;
 using RMC.Core.Architectures.Mini.View;
-using RMC.Core.Architectures.Mini.Context;
-using Unity.VisualScripting;
-using System;
+using RMC.Core.Architectures.Mini;
 
 public class MyLoginView : MonoBehaviour, IView
 {

@@ -1,4 +1,4 @@
-using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Architectures.Mini;
 using RMC.Core.Architectures.Mini.View;
 using System;
 using System.Collections;

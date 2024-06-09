@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MonoMVCS
 {
-    public class MonoController<TModel, TView, TService> : BaseController<TModel, TView, TService>, IDisposable
+    public class MonoController<TModel, TView, TService> : BaseController<TModel, TView, TService>
         where TModel : MonoModel
         where TView : MonoView
         where TService : MonoService
@@ -16,8 +16,9 @@ namespace MonoMVCS
             _model.OnModelChangedEvent += _view.UpdateView;
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
             _model.OnModelChangedEvent -= _view.UpdateView;
         }
     }

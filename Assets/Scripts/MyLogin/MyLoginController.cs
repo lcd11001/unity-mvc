@@ -1,20 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Architectures.Mini;
 using RMC.Core.Architectures.Mini.Controller;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class MyLoginController : BaseController<MyLoginModel<MyLoginData>, MyLoginView, MyLoginService>, IDisposable
+public class MyLoginController : BaseController<MyLoginModel<MyLoginData>, MyLoginView, MyLoginService>
 {
     public MyLoginController(MyLoginModel<MyLoginData> model, MyLoginView view, MyLoginService service) : base(model, view, service)
     {
         Application.quitting += Dispose;
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
+        base.Dispose();
         Debug.Log("MyLoginController.Dispose");
         Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginRequestCommand>(OnLoginRequestCommand);
         Context.CommandManager.RemoveCommandListener<MyLoginCommands.LoginResponseCommand>(OnLoginResponseCommand);

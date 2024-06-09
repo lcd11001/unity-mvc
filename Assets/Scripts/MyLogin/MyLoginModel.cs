@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Architectures.Mini;
 using RMC.Core.Architectures.Mini.Model;
+using RMC.Core.Data.Types;
 using UnityEngine;
 
 public partial class MyLoginModel<T> : BaseModel

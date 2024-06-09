@@ -1,5 +1,5 @@
 using NaughtyAttributes;
-using RMC.Core.Architectures.Mini.Context;
+using RMC.Core.Architectures.Mini;
 using System;
 using UnityEngine;
 

@@ -1,10 +1,5 @@
 using MonoMVCS;
-using RMC.Core.Architectures.Mini.Context;
-using RMC.Core.Architectures.Mini.Controller;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using RMC.Core.Architectures.Mini;
 
 public class MyLoginMonoController : MonoController<MyLoginMonoModel, MyLoginMonoView, MyLoginMonoService>
 {
