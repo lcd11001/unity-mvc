@@ -2,6 +2,7 @@ using NaughtyAttributes;
 using RMC.Core.Architectures.Mini;
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace MonoMVCS
 {
@@ -61,11 +62,11 @@ namespace MonoMVCS
 
             // default support for all models, views, controllers and services
             // you can override this method to add or remove one of them
-            MonoUtils.CheckNull(context, nameof(context));
-            MonoUtils.CheckNull(model, nameof(model));
-            MonoUtils.CheckNull(view, nameof(view));
-            MonoUtils.CheckNull(controller, nameof(controller));
-            MonoUtils.CheckNull(service, nameof(service));
+            Assert.IsNotNull(context, $"{nameof(context)} is null. Consider calling MVCS to create an instance of it.");
+            Assert.IsNotNull(model, $"{nameof(model)} is null. Consider calling MVCS to create an instance of it.");
+            Assert.IsNotNull(view, $"{nameof(view)} is null. Consider calling MVCS to create an instance of it.");
+            Assert.IsNotNull(controller, $"{nameof(controller)} is null. Consider calling MVCS to create an instance of it.");
+            Assert.IsNotNull(service, $"{nameof(service)} is null. Consider calling MVCS to create an instance of it.");
 
             model.Initialize(context);
             view.Initialize(context);
