@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using MonoMVCS;
+using UnityEngine;
+
+public class {{className}}Controller : MonoController<{{className}}Model, {{className}}View, {{className}}Service>
+{
+    public {{className}}Controller({{className}}Model model, {{className}}View view, {{className}}Service service) : base(model, view, service)
+    {
+    }
+}

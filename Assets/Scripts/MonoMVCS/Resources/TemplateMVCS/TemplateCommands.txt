@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using RMC.Mini.Controller.Commands;
+using UnityEngine;
+
+public static class {{className}}Commands
+{
+    public class GetRequestCommand<T> : ICommand
+    {
+        public T Request { get; private set; }
+        public GetRequestCommand(T request)
+        {
+            Request = request;
+        }
+    }
+
+    public class GetResponseCommand<T> : ICommand
+    {
+        public T Response { get; private set; }
+
+        public GetResponseCommand(T response)
+        {
+            Response = response;
+        }
+    }
+
+    public class GetRequestErrorCommand : ICommand
+    {
+        public long StatusCode { get; private set; }
+        public string Error { get; private set; }
+
+        public GetRequestErrorCommand(string error, long statusCode)
+        {
+            Error = error;
+            StatusCode = statusCode;
+        }
+    }
+}

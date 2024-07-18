@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using MonoMVCS;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "{{className}}Model")]
+public class {{className}}Model : MonoModel
+{
+
+}

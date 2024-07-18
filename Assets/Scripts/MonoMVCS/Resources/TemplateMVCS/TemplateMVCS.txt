@@ -1,0 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using MonoMVCS;
+using UnityEngine;
+
+public class {{className}}MVCS : MonoMVCS<{{className}}Model, {{className}}View, {{className}}Controller, {{className}}Service>
+{
+
+}

@@ -1,0 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
+using MonoMVCS;
+using UnityEngine;
+
+public class {{className}}View : MonoView
+{
+    public override void UpdateView(MonoModel data)
+    {
+    }
+}
