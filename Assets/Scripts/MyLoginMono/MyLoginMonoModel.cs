@@ -1,5 +1,5 @@
 using MonoMVCS;
-using RMC.Core.Architectures.Mini;
+using RMC.Mini;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MyLoginMonoModel", menuName = "Mono MVCS/My Login Mono/Model")]

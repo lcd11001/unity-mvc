@@ -1,8 +1,8 @@
 using UnityEngine;
 using TMPro;
 using Doozy.Runtime.UIManager.Components;
-using RMC.Core.Architectures.Mini.View;
-using RMC.Core.Architectures.Mini;
+using RMC.Mini.View;
+using RMC.Mini;
 
 public class MyLoginView : MonoBehaviour, IView
 {
@@ -102,5 +102,10 @@ public class MyLoginView : MonoBehaviour, IView
         {
             SetViewStatus(false, "Logged In FAILED");
         }
+    }
+
+    public void Dispose()
+    {
+
     }
 }

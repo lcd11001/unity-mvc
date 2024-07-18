@@ -1,6 +1,6 @@
+using RMC.Mini;
+using RMC.Mini.Controller;
 using System;
-using RMC.Core.Architectures.Mini;
-using RMC.Core.Architectures.Mini.Controller;
 using UnityEngine;
 
 public class MyLoginController : BaseController<MyLoginModel<MyLoginData>, MyLoginView, MyLoginService>

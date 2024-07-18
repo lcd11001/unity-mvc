@@ -1,5 +1,5 @@
+using RMC.Mini.Service;
 using System.Threading.Tasks;
-using RMC.Core.Architectures.Mini.Service;
 
 public class MyLoginService : BaseService
 {

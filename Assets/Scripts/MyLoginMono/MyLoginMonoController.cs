@@ -1,5 +1,6 @@
 using MonoMVCS;
-using RMC.Core.Architectures.Mini;
+using RMC.Mini;
+
 
 public class MyLoginMonoController : MonoController<MyLoginMonoModel, MyLoginMonoView, MyLoginMonoService>
 {

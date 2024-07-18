@@ -1,7 +1,6 @@
+using RMC.Mini;
 using System.Collections;
 using System.Collections.Generic;
-using RMC.Core.Architectures.Mini;
-using RMC.Core.Architectures.Mini.Structure.Simple;
 using UnityEngine;
 
 public class MyLogin : SimpleMiniMvcs<
