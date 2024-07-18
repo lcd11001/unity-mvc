@@ -1,5 +1,5 @@
-using RMC.Core.Architectures.Mini;
-using RMC.Core.Architectures.Mini.Model;
+using RMC.Mini;
+using RMC.Mini.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,23 +18,18 @@ namespace MonoMVCS
         public bool IsInitialized => _isInitialized;
         public IContext Context => _context;
 
+        public event Action<MonoModel> OnModelInitializedEvent;
         public event Action<MonoModel> OnModelChangedEvent;
 
         private bool _isInitialized = false;
         private IContext _context;
 
-        protected virtual void OnEnable()
-        {
-            // ScriptableObject instances persist across play sessions in the Unity editor.
-            // This means that if you set _isInitialized to true during one play session,
-            // it will remain true when you stop and then play again in the Unity editor.
-            _isInitialized = false;
-        }
-
         public virtual void Initialize(IContext context)
         {
             _context = context;
             _isInitialized = true;
+
+            OnModelInitializedEvent?.Invoke(this);
         }
 
         public virtual void RequireIsInitialized()
@@ -49,11 +44,15 @@ namespace MonoMVCS
         public virtual void OnModelChanged()
         {
             RequireIsInitialized();
-            OnModelChangedEvent.Invoke(this);
+            OnModelChangedEvent?.Invoke(this);
         }
 
         public virtual void Dispose()
         {
+            // ScriptableObject instances persist across play sessions in the Unity editor.
+            // This means that if you set _isInitialized to true during one play session,
+            // it will remain true when you stop and then play again in the Unity editor.
+            _isInitialized = false;
         }
     }
 }

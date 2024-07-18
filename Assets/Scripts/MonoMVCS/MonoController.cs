@@ -1,4 +1,4 @@
-using RMC.Core.Architectures.Mini.Controller;
+using RMC.Mini.Controller;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,13 +13,37 @@ namespace MonoMVCS
     {
         public MonoController(TModel model, TView view, TService service) : base(model, view, service)
         {
-            _model.OnModelChangedEvent += _view.UpdateView;
+            _model.OnModelInitializedEvent += OnModelInitialized;
+            _model.OnModelChangedEvent += OnModelChanged;
         }
 
         public override void Dispose()
         {
             base.Dispose();
-            _model.OnModelChangedEvent -= _view.UpdateView;
+            _model.OnModelChangedEvent -= OnModelChanged;
+            _model.OnModelInitializedEvent -= OnModelInitialized;
+        }
+
+        private void OnModelInitialized(MonoModel model)
+        {
+            MainThreadDispatcher.RunOnMainThread(() =>
+            {
+                if (_view != null && _model != null)
+                {
+                    _view.InitView(model);
+                }
+            });
+        }
+
+        protected virtual void OnModelChanged(MonoModel model)
+        {
+            MainThreadDispatcher.RunOnMainThread(() =>
+            {
+                if (_view != null && _model != null)
+                {
+                    _view.UpdateView(model);
+                }
+            });
         }
     }
 }

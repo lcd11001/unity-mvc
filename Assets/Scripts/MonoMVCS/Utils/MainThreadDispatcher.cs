@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +14,16 @@ public class MainThreadDispatcher : MonoBehaviour
         {
             if (_instance == null)
             {
-                GameObject go = new GameObject("MainThreadDispatcher");
-                _instance = go.AddComponent<MainThreadDispatcher>();
-                DontDestroyOnLoad(go);
+                try
+                {
+                    GameObject go = new GameObject("MainThreadDispatcher");
+                    _instance = go.AddComponent<MainThreadDispatcher>();
+                    DontDestroyOnLoad(go);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError("MainThreadDispatcher Create Game Object Error: " + ex.Message);
+                }
             }
             return _instance;
         }
@@ -51,4 +59,10 @@ public class MainThreadDispatcher : MonoBehaviour
     {
         Instance.Enqueue(action);
     }
+
+    public static Coroutine InvokeCoroutine(IEnumerator routine)
+    {
+        return Instance.StartCoroutine(routine);
+    }
+
 }

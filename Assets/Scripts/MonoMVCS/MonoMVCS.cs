@@ -1,5 +1,5 @@
 using NaughtyAttributes;
-using RMC.Core.Architectures.Mini;
+using RMC.Mini;
 using System;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,25 +20,29 @@ namespace MonoMVCS
 
         protected TController controller;
         protected TService service;
-        protected Context context;
+        protected BaseContext context;
 
         private bool _isInitialized = false;
-        public bool IsInintialized => _isInitialized;
+        public bool IsInitialized => _isInitialized;
 
         protected virtual void Awake()
         {
             MVCS();
+            CreateMainThreadDispatcher();
             Initialize(context);
         }
 
         protected virtual void OnDestroy()
         {
-            if (IsInintialized)
+            if (IsInitialized)
             {
                 model.Dispose();
                 view.Dispose();
                 controller.Dispose();
                 service.Dispose();
+
+                // don't destroy context, it's shared between scenes
+                //context.Dispose();
             }
         }
 
@@ -48,14 +52,20 @@ namespace MonoMVCS
         /// <param name="context"></param>
         protected virtual void MVCS()
         {
-            context = new Context();
+            context = MonoContext.SharedContex("MonoContext");
             service = (TService)Activator.CreateInstance(typeof(TService));
             controller = (TController)Activator.CreateInstance(typeof(TController), model, view, service);
         }
 
+        private void CreateMainThreadDispatcher()
+        {
+            // create MainThreadDispatcher
+            Assert.IsNotNull(MainThreadDispatcher.Instance, $"{nameof(MainThreadDispatcher)} is null. Consider calling CreateMainThreadDispatcher from MonoBehaviour awake or start");
+        }
+
         protected virtual void Initialize(IContext context)
         {
-            if (IsInintialized)
+            if (IsInitialized)
             {
                 return;
             }

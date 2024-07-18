@@ -1,4 +1,4 @@
-using RMC.Core.Architectures.Mini.Service;
+using RMC.Mini.Service;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,9 +8,5 @@ namespace MonoMVCS
 {
     public class MonoService : BaseService, IDisposable
     {
-        public virtual void Dispose()
-        {
-
-        }
     }
 }

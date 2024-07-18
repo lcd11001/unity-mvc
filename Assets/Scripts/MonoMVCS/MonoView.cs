@@ -1,5 +1,5 @@
-using RMC.Core.Architectures.Mini;
-using RMC.Core.Architectures.Mini.View;
+using RMC.Mini;
+using RMC.Mini.View;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +16,11 @@ namespace MonoMVCS
         private bool _isInitialized = false;
         private IContext _context;
 
+        protected virtual void Start()
+        {
+            RequireIsInitialized();
+        }
+
         public virtual void Initialize(IContext context)
         {
             _context = context;
@@ -26,9 +31,13 @@ namespace MonoMVCS
         {
             if (!_isInitialized)
             {
-                Debug.LogError("BaseView: MustBeInitialized");
+                Debug.LogError("BaseView: MustBeInitialized from MonoMVCS::Awake");
                 throw new Exception("MustBeInitialized");
             }
+        }
+
+        public virtual void InitView(MonoModel data)
+        {
         }
 
         public abstract void UpdateView(MonoModel data);
